@@ -58,3 +58,12 @@ exports.updateUser = (request, response)=>{
         })
     }
 }
+
+//delete user
+exports.deleteUser = (request, response)=>{
+    UserModel.deleteUser(request.params.id, (error, user)=>{
+        if(error)
+            response.send(error);
+        response.json({success: true, message: 'User sucessfully deleted'});
+    })
+}

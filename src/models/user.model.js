@@ -66,4 +66,16 @@ User.updateUSer = (id, userRequestData, result)=>{
     })
 }
 
+//delete user
+User.deleteUser = (id, result)=>{
+    dbConn.query('DELETE from user WHERE id= ?', [id], (error, response)=>{
+        if(error){
+            console.log('Error while deleting user');
+            result(null, error);
+        }else{
+            result(null, response);
+        }
+    })
+}
+
 module.exports = User;
