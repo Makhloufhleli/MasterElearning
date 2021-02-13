@@ -1,14 +1,13 @@
+const { request } = require('express');
 const UserModel = require('../models/user.model');
 
 //get All Users list
 exports.getUsresList = (request, response)=>{
     //console.log('getting Usres list');
     UserModel.getAllUsers((error, users)=>{
-        console.log('here we are!')
         if(error){
             response.send(error);
         }
-        console.log('Users', users)
         response.send(users);
     })
 }
@@ -20,7 +19,28 @@ exports.getUserById = (request, response)=>{
         if(error){
             response.send(error);
         }
-        console.log('User', user)
         response.send(user);
     })
 }
+
+//create new user
+exports.createUser = (request, response)=>{
+    
+    const userRequestData = new UserModel(request.body);
+    console.log('User request data', userRequestData);
+    if(request.body.contructor === Object && Object.keys(request.body).length === 0){
+        response.send(400).send({success: false, message:'please fill al fields'});
+    }else{
+        console.log('valid data');
+        UserModel.createUSer(userRequestData, (error, user)=>{
+            if(error){
+                response.send(error);
+                response.json({status: false, message: 'Error!, something went wrong!'});
+            }else{
+                response.json({status: true, message: 'User sucessfully created', user});
+            }
+        })
+    }
+    
+}
+

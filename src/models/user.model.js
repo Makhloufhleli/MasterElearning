@@ -1,6 +1,6 @@
 var dbConn = require('../../config/dbConfig');
 
-var User = (user)=>{
+var User = function(user){
     this.first_name = user.first_name;
     this.last_name = user.last_name;
     this.email = user.email;
@@ -35,6 +35,19 @@ User.getUserById = (id, result)=>{
             result(null, error);
         }else{
             console.log('user successfully fetched!')
+            result(null, response);
+        }
+    })
+}
+
+//create new user
+User.createUSer = (userRequestData, result)=>{
+    dbConn.query('INSERT INTO user SET ?', userRequestData, (error, response)=>{
+        if(error){
+            console.log('error while insert data');
+            result(null, error);
+        }else{
+            console.log('user successfully created!');
             result(null, response);
         }
     })
