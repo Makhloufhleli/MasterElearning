@@ -4,8 +4,7 @@ const pool = createConnection({
     host:"127.0.0.1",
     user:"root",
     password:"",
-    database:"elearningapp",
-    connectionLimit:10
+    database:"elearningapp"
 })
 pool.connect(function(error){
     if(error) throw error;
