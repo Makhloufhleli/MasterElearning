@@ -44,3 +44,17 @@ exports.createUser = (request, response)=>{
     
 }
 
+//update user
+exports.updateUser = (request, response)=>{
+    const userRequestData = new UserModel(request.body);
+    console.log('User request data update', userRequestData);
+    if(request.body.contructor === Object && Object.keys(request.body).length === 0){
+        response.send(400).send({success: false, message:'please fill al fields'});
+    }else{
+        UserModel.updateUSer(request.params.id, userRequestData, (error, user)=>{
+            if(error)
+                response.send(error);
+            response.json({status: true, message: 'User sucessfully updated', data: user.insertId});
+        })
+    }
+}

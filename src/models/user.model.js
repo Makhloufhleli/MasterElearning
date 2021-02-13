@@ -53,4 +53,17 @@ User.createUSer = (userRequestData, result)=>{
     })
 }
 
+//update user
+User.updateUSer = (id, userRequestData, result)=>{
+    dbConn.query("UPDATE user SET first_name = ?,last_name = ?, email = ?, avatar = ?, login = ?, password = ?, status = ?, created_at = ?, phone = ? WHERE id=?", [userRequestData.first_name, userRequestData.last_name, userRequestData.email, userRequestData.avatar, userRequestData.login, userRequestData.password, userRequestData.status, userRequestData.created_at, userRequestData.phone, id], (error, response)=>{
+        if(error){
+            console.log('error while updating user');
+            result(null, error);
+        }else{
+            console.log('user successfully updated!');
+            result(null, response);
+        }
+    })
+}
+
 module.exports = User;

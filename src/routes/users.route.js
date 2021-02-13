@@ -7,5 +7,6 @@ const UserController = require('../controller/UserController');
 router.get('/', UserController.getUsresList);//to get all users
 router.get('/:id', UserController.getUserById);//to get user by id
 router.post('/', UserController.createUser);//to create a new user
+router.put('/:id', UserController.updateUser);//to update user
 
 module.exports = router;
