@@ -13,6 +13,7 @@ var User = (user)=>{
 
 }
 
+//get all users
 User.getAllUsers = (result)=>{
     dbConn.query('SELECT * FROM user', (error, response)=>{
         if(error){
@@ -23,6 +24,19 @@ User.getAllUsers = (result)=>{
             result(null, response);
         }
 
+    })
+}
+
+//get user by id
+User.getUserById = (id, result)=>{
+    dbConn.query('SELECT * FROM user WHERE id = ?', id, (error, response)=>{
+        if(error){
+            console.log('error while fetching user', error);
+            result(null, error);
+        }else{
+            console.log('user successfully fetched!')
+            result(null, response);
+        }
     })
 }
 

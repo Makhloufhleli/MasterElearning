@@ -1,6 +1,6 @@
 const UserModel = require('../models/user.model');
 
-//getUsers list
+//get All Users list
 exports.getUsresList = (request, response)=>{
     //console.log('getting Usres list');
     UserModel.getAllUsers((error, users)=>{
@@ -10,5 +10,17 @@ exports.getUsresList = (request, response)=>{
         }
         console.log('Users', users)
         response.send(users);
+    })
+}
+
+//get User by id
+exports.getUserById = (request, response)=>{
+    //console.log('geting user by id');
+    UserModel.getUserById(request.params.id, (error, user)=>{
+        if(error){
+            response.send(error);
+        }
+        console.log('User', user)
+        response.send(user);
     })
 }
