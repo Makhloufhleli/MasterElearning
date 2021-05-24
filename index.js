@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const cors = require('cors');
 
 
 app.listen(5500, ()=> {
@@ -16,6 +17,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 //parse request data content type application/json
 app.use(bodyParser.json());
+
+//enable CORS for all the request to allow the client to access to the api
+app.use(cors())
 
 //create home route
 app.use('/', homeRoute);

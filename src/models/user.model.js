@@ -1,21 +1,17 @@
 var dbConn = require('../../config/dbConfig');
 
 var User = function(user){
-    this.first_name = user.first_name;
-    this.last_name = user.last_name;
+    this.prenom = user.prenom;
+    this.nom = user.nom;
+    this.tel = user.tel;
     this.email = user.email;
-    this.avatar = user.avatar;
     this.login = user.login;
     this.password = user.password;
-    this.status = user.status ? user.status : 1;
-    this.created_at = new Date();
-    this.phone = user.phone;
-
 }
 
 //get all users
 User.getAllUsers = (result)=>{
-    dbConn.query('SELECT * FROM user', (error, response)=>{
+    dbConn.query('SELECT * FROM utilisateur', (error, response)=>{
         if(error){
             console.log('error while fetching users', error);
             result(null, error);
@@ -29,7 +25,7 @@ User.getAllUsers = (result)=>{
 
 //get user by id
 User.getUserById = (id, result)=>{
-    dbConn.query('SELECT * FROM user WHERE id = ?', id, (error, response)=>{
+    dbConn.query('SELECT * FROM utilisateur WHERE id = ?', id, (error, response)=>{
         if(error){
             console.log('error while fetching user', error);
             result(null, error);
@@ -42,7 +38,7 @@ User.getUserById = (id, result)=>{
 
 //create new user
 User.createUSer = (userRequestData, result)=>{
-    dbConn.query('INSERT INTO user SET ?', userRequestData, (error, response)=>{
+    dbConn.query('INSERT INTO utilisateur SET ?', userRequestData, (error, response)=>{
         if(error){
             console.log('error while insert data');
             result(null, error);
@@ -55,7 +51,7 @@ User.createUSer = (userRequestData, result)=>{
 
 //update user
 User.updateUSer = (id, userRequestData, result)=>{
-    dbConn.query("UPDATE user SET first_name = ?,last_name = ?, email = ?, avatar = ?, login = ?, password = ?, status = ?, created_at = ?, phone = ? WHERE id=?", [userRequestData.first_name, userRequestData.last_name, userRequestData.email, userRequestData.avatar, userRequestData.login, userRequestData.password, userRequestData.status, userRequestData.created_at, userRequestData.phone, id], (error, response)=>{
+    dbConn.query("UPDATE utilisateur SET first_name = ?,last_name = ?, email = ?, avatar = ?, login = ?, password = ?, status = ?, created_at = ?, phone = ? WHERE id=?", [userRequestData.first_name, userRequestData.last_name, userRequestData.email, userRequestData.avatar, userRequestData.login, userRequestData.password, userRequestData.status, userRequestData.created_at, userRequestData.phone, id], (error, response)=>{
         if(error){
             console.log('error while updating user');
             result(null, error);
@@ -68,7 +64,7 @@ User.updateUSer = (id, userRequestData, result)=>{
 
 //delete user
 User.deleteUser = (id, result)=>{
-    dbConn.query('DELETE from user WHERE id= ?', [id], (error, response)=>{
+    dbConn.query('DELETE from utilisateur WHERE id= ?', [id], (error, response)=>{
         if(error){
             console.log('Error while deleting user');
             result(null, error);
